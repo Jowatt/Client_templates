@@ -86,17 +86,17 @@ class Login extends React.Component {
      * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
      */
     login() {
-        fetch(`${getDomain()}/users/this.state.username`, {
+        fetch(`${getDomain()}/users/${this.state.username}?pw=${this.state.password}`, {
             method: "GET",
             })
-
-            .then(response => response.json())
-            .then()
+            .then(response => {
+                if(!response.ok) throw new Error(response.status);
+                return response.json()
+            })
             .then(returnedUser => {
                 const user = new User(returnedUser);
                 // store the token into the local storage
                 localStorage.setItem("token", user.token);
-                localStorage.setItem("Password", user.token);
                 // user login successfully worked --> navigate to the route /game in the GameRouter
                 this.props.history.push(`/game`);
             })
