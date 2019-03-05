@@ -148,7 +148,7 @@ render() {
                         }}
                     />
                     <Label>Password</Label>
-                    <InputField
+                    <InputField type="password"
                         placeholder="Enter here.."
                         onChange={e => {
                             this.handleInputChange("password", e.target.value);

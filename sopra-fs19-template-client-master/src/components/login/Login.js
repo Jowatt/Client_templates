@@ -88,14 +88,15 @@ class Login extends React.Component {
     login() {
         fetch(`${getDomain()}/users/this.state.username`, {
             method: "GET",
-
             })
 
             .then(response => response.json())
+            .then()
             .then(returnedUser => {
                 const user = new User(returnedUser);
                 // store the token into the local storage
                 localStorage.setItem("token", user.token);
+                localStorage.setItem("Password", user.token);
                 // user login successfully worked --> navigate to the route /game in the GameRouter
                 this.props.history.push(`/game`);
             })
@@ -145,7 +146,7 @@ class Login extends React.Component {
                             }}
                         />
                         <Label>Password</Label>
-                        <InputField
+                        <InputField type="password"
                             placeholder="Enter here.."
                             onChange={e => {
                                 this.handleInputChange("password", e.target.value);
