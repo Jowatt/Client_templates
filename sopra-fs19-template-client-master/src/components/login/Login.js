@@ -46,16 +46,22 @@ const InputField = styled.input`
   color: white;
 `;
 
-const Label = styled.label`
+export const Label = styled.label`
   color: white;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+`;
+
+const ErrorLabel = styled.label`
+  color: red;
+  margin-bottom: 10px;
+  display: ${props => (props.display)};
 `;
 
 /**
@@ -78,7 +84,8 @@ class Login extends React.Component {
         super();
         this.state = {
             password: null,
-            username: null
+            username: null,
+            requestValid:true
         };
     }
     /**
@@ -88,12 +95,19 @@ class Login extends React.Component {
     login() {
         fetch(`${getDomain()}/users/${this.state.username}?pw=${this.state.password}`, {
             method: "GET",
-            })
-            .then(response => {
-                if(!response.ok) throw new Error(response.status);
-                return response.json()
-            })
+            headers: {
+                Accept: 'application/json'
+            }
+        })
+            .then(response => response.json())
             .then(returnedUser => {
+                //handle errorresponses
+                if (returnedUser.status === 404 || returnedUser.status === 401) {
+                    this.setState({"requestValid": false});
+                    return;
+                }
+                else if (returnedUser.status !== "ONLINE") throw new Error(returnedUser.status + " - " + returnedUser.message);
+                this.setState({"requestValid": true});
                 const user = new User(returnedUser);
                 // store the token into the local storage
                 localStorage.setItem("token", user.token);
@@ -152,6 +166,7 @@ class Login extends React.Component {
                                 this.handleInputChange("password", e.target.value);
                             }}
                         />
+                        <ErrorLabel display={this.state.requestValid?"none":""}>Incorrect username or password.</ErrorLabel>
                         <ButtonContainer>
                             <Button
                                 disabled={!this.state.username || !this.state.password}

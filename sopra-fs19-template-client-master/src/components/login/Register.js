@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
 
+
 const FormContainer = styled.div`
   margin-top: 2em;
   display: flex;
@@ -21,7 +22,7 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  height: 375px;
+  height: 450px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
@@ -38,7 +39,7 @@ const InputField = styled.input`
   height: 35px;
   padding-left: 15px;
   margin-left: -4px;
-  border: none;
+  border: ${props => (props.invalid ? "#b22222 solid 2px" :"none")}
   border-radius: 20px;
   margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.2);
@@ -69,7 +70,9 @@ class Register extends React.Component {
         this.state = {
             name: null,
             username: null,
-            password: null
+            password: null,
+            passwordRepeat: null,
+            passwordValid: true
         };
     }
     /**
@@ -89,7 +92,7 @@ class Register extends React.Component {
             })
         })
             .then(response => {
-                if(!response.ok) throw new Error(response.status);
+                if(!response.ok) {throw  response}
                 return response.json()
             })
             .then(registeredUser => {
@@ -99,10 +102,15 @@ class Register extends React.Component {
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
                     alert("The server cannot be reached. Did you start it?");
-                } else {
-                    alert(`Something went wrong during the login: ${err.message}`);
                 }
-            });
+                else {
+                    err.text().then( errorMessage => {
+                        this.props.dispatch((errorMessage))
+                    });
+                }//else {
+                  //  alert(`Something went wrong during the login: ${err.message}`);
+                //}
+            })
     }
     /**
      *  Every time the user enters something in the input field, the state gets updated.
@@ -114,6 +122,19 @@ class Register extends React.Component {
         // this.setState({'username': value});
         this.setState({ [key]: value });
     }
+
+    handlePasswordValidation(value) {
+        // Example: if the key is username, this statement is the equivalent to the following one:
+        // this.setState({'username': value});
+        if (value === this.state.password) {
+            this.setState({"passwordRepeat": value});
+            this.setState({"passwordValid": "true"});
+        }
+        else {
+            this.setState({"passwordValid": null});
+        }
+    }
+
     back_login(){
         this.props.history.push("/login")
     }
@@ -153,6 +174,14 @@ render() {
                             this.handleInputChange("password", e.target.value);
                         }}
                     />
+                    <Label>Repeat Password</Label>
+                    <InputField type="password"
+                                placeholder="Enter here.." invalid={!this.state.passwordValid}
+                                onChange={e => {
+                                    this.handlePasswordValidation(e.target.value);
+                                }}
+                     />
+
                     <ButtonContainer>
                         <Button
                             width="10%"
@@ -164,7 +193,7 @@ render() {
                         </Button>
                         &nbsp;&nbsp;&nbsp;
                         <Button
-                            disabled={!this.state.username || !this.state.name || !this.state.password}
+                            disabled={!this.state.username || !this.state.name || !this.state.password || !this.state.passwordValid}
                             width="50%"
                             onClick={() => {
                                 this.register();
