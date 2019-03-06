@@ -165,6 +165,11 @@ class Login extends React.Component {
                             onChange={e => {
                                 this.handleInputChange("password", e.target.value);
                             }}
+                                    onKeyPress={event => {
+                                        if(event.key === 'Enter') {
+                                            this.login();
+                            }
+                        }}
                         />
                         <ErrorLabel display={this.state.requestValid?"none":""}>Incorrect username or password.</ErrorLabel>
                         <ButtonContainer>
@@ -175,11 +180,7 @@ class Login extends React.Component {
                                     this.login();
                                 }}
 
-                                onKeyPress={event => {
-                                    if(event.key === 'Enter') {
-                                        this.login();
-                                    }
-                                }}
+
                             >
                                 Login
                             </Button>

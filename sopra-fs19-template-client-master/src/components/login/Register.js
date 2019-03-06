@@ -22,7 +22,7 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  height: 450px;
+  height: 520px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
@@ -30,6 +30,13 @@ const Form = styled.div`
   border-radius: 5px;
   background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
+`;
+
+const ErrorLabel = styled.label`
+  color: red;
+  display: ${props => (props.display)};
+  line-height:.7em;
+  margin-bottom: 0.5em;
 `;
 
 const InputField = styled.input`
@@ -58,6 +65,12 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
+const Title = styled.h2`
+  font-weight: bold;
+  color: white;
+  text-align: center;
+`;
+
 class Register extends React.Component {
     /**
      * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
@@ -72,7 +85,8 @@ class Register extends React.Component {
             username: null,
             password: null,
             passwordRepeat: null,
-            passwordValid: true
+            passwordValid: true,
+            requestValid: true
         };
     }
     /**
@@ -92,11 +106,15 @@ class Register extends React.Component {
             })
         })
             .then(response => {
-                if(!response.ok) {throw  response}
-                return response.json()
+                 response.json()
             })
-            .then(registeredUser => {
-                const user = new User(registeredUser);
+            .then(returnedUser => {
+                //handle errorresponses
+                if (returnedUser.status === 400) {
+                    this.setState({"requestValid": false});
+                    return;
+                }
+                else if (returnedUser.status !== "OFFLINE") throw new Error(returnedUser.status + " - " + returnedUser.message);
                 this.props.history.push(`/login`);
             })
             .catch(err => {
@@ -153,7 +171,10 @@ render() {
         <BaseContainer>
             <FormContainer>
                 <Form>
+                    <Title>Enter your credentials!</Title>
                     <Label>Username</Label>
+                    <ErrorLabel display={this.state.requestValid?"none":""}>username already existing.</ErrorLabel>
+
                     <InputField
                         placeholder="Enter here.."
                         onChange={e => {
