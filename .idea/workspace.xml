@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5011a50-3519-426a-b047-f840594bb37c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Register.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -22,8 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1334">
-              <caret line="98" column="42" lean-forward="true" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
+            <state relative-caret-position="2093">
+              <caret line="172" column="58" selection-start-line="172" selection-start-column="58" selection-end-line="172" selection-end-column="58" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -34,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="31" column="53" lean-forward="true" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
+            <state relative-caret-position="575">
+              <caret line="118" column="14" lean-forward="true" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -278,18 +279,18 @@
       <workItem from="1551612192525" duration="3000" />
       <workItem from="1551718045109" duration="9660000" />
       <workItem from="1551802424350" duration="12173000" />
-      <workItem from="1551897375941" duration="6150000" />
+      <workItem from="1551897375941" duration="9143000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31161000" />
+    <option name="totallyTimeSpent" value="34154000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1273" y="0" width="1294" height="1407" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17834395" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10031847" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -446,8 +447,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1334">
-          <caret line="98" column="42" lean-forward="true" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
+        <state relative-caret-position="2093">
+          <caret line="172" column="58" selection-start-line="172" selection-start-column="58" selection-end-line="172" selection-end-column="58" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -456,8 +457,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sopra-fs19-template-client-master/src/components/login/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="31" column="53" lean-forward="true" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
+        <state relative-caret-position="575">
+          <caret line="118" column="14" lean-forward="true" selection-start-line="118" selection-start-column="14" selection-end-line="118" selection-end-column="14" />
         </state>
       </provider>
     </entry>

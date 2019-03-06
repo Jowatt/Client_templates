@@ -114,7 +114,7 @@ class Register extends React.Component {
                     this.setState({"requestValid": false});
                     return;
                 }
-                else if (returnedUser.status !== "OFFLINE") throw new Error(returnedUser.status + " - " + returnedUser.message);
+                else if (returnedUser.status !== "OFFLINE") throw new Error (returnedUser.status + " - " + returnedUser.message);
                 this.props.history.push(`/login`);
             })
             .catch(err => {
@@ -122,12 +122,8 @@ class Register extends React.Component {
                     alert("The server cannot be reached. Did you start it?");
                 }
                 else {
-                    err.text().then( errorMessage => {
-                        this.props.dispatch((errorMessage))
-                    });
-                }//else {
-                  //  alert(`Something went wrong during the login: ${err.message}`);
-                //}
+                  alert(`Something went wrong during the login: ${err.message}`);
+                }
             })
     }
     /**
@@ -201,6 +197,13 @@ render() {
                                 onChange={e => {
                                     this.handlePasswordValidation(e.target.value);
                                 }}
+                                onKeyPress={event => {
+                                    if(event.key === 'Enter') {
+                                        if (!this.state.username || !this.state.name || !this.state.password || !this.state.passwordValid || !this.state.passwordRepeat){
+                                            return
+                                        }else{
+                                        this.register();}
+                                    }}}
                      />
 
                     <ButtonContainer>
@@ -214,7 +217,7 @@ render() {
                         </Button>
                         &nbsp;&nbsp;&nbsp;
                         <Button
-                            disabled={!this.state.username || !this.state.name || !this.state.password || !this.state.passwordValid}
+                            disabled={!this.state.username || !this.state.name || !this.state.password || !this.state.passwordValid || !this.state.passwordRepeat}
                             width="50%"
                             onClick={() => {
                                 this.register();

@@ -167,7 +167,10 @@ class Login extends React.Component {
                             }}
                                     onKeyPress={event => {
                                         if(event.key === 'Enter') {
-                                            this.login();
+                                            if (!this.state.username || !this.state.password) {
+                                                return
+                                            }else{
+                                            this.login();}
                             }
                         }}
                         />
