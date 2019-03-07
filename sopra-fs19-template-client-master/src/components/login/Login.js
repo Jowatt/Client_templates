@@ -93,8 +93,8 @@ class Login extends React.Component {
      * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
      */
     login() {
-        fetch(`${getDomain()}/users/${this.state.username}?pw=${this.state.password}`, {
-            method: "GET",
+        fetch(`${getDomain()}/users/login/${this.state.username}?${this.state.password}`, {
+            method: "POST",
             headers: {
                 Accept: 'application/json'
             }
@@ -106,7 +106,7 @@ class Login extends React.Component {
                     this.setState({"requestValid": false});
                     return;
                 }
-                else if (returnedUser.status !== "ONLINE") throw new Error(returnedUser.status + " - " + returnedUser.message);
+               // else if (returnedUser.token === null){ throw new Error(returnedUser.status + " - " + returnedUser.message);}
                 this.setState({"requestValid": true});
                 const user = new User(returnedUser);
                 // store the token into the local storage
@@ -123,7 +123,7 @@ class Login extends React.Component {
             });
     }
 
-    demand_reg(){
+    demandReg(){
         this.props.history.push('/register')
         //this.props.history.push('/register')
     }
@@ -191,7 +191,7 @@ class Login extends React.Component {
                             <Button
                                 width="25%"
                                 onClick={() => {
-                                    this.demand_reg()
+                                    this.demandReg()
                                 }}>
 
                                 Sign Up

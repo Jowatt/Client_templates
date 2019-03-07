@@ -38,25 +38,31 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${getDomain()}/users`, {
-      method: "GET",
+    fetch(`${getDomain()}/users/logout/${localStorage.getItem("token")}`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
-      .then(async users => {
-        // delays continuous execution of an async operation for 0.8 seconds.
-        // This is just a fake async call, so that the spinner can be displayed
-        // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 800));
+        .then(response => response.json(), error =>
+        {
+          this.props.history.push("/login");
+        })
+      //  .then( users => {
+          // delays continuous execution of an async operation for 0.8 seconds.
+          // This is just a fake async call, so that the spinner can be displayed
+          // feel free to remove it :)
+        //  try { this.setState({users}); }
+          //catch {
+            //alert("Sorry something went wrong!");
+           // this.logout();
+          //}
 
-        this.setState({ users });
-      })
-      .catch(err => {
-        console.log(err);
-        alert("Something went wrong fetching the users: " + err);
-      });
+       // })
+        .catch(err => {
+          console.log(err);
+          alert("Something went wrong fetching the users: " + err);
+        });
   }
 
   render() {
@@ -72,7 +78,9 @@ class Game extends React.Component {
               {this.state.users.map(user => {
                 return (
                   <PlayerContainer key={user.id}>
-                    <Player user={user} />
+                    <Player user={user}
+
+                    />
                   </PlayerContainer>
                 );
               })}

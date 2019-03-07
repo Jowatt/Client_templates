@@ -78,8 +78,8 @@ class Register extends React.Component {
      * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
      * These fields are then handled in the onChange() methods in the resp. InputFields
      */
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             name: null,
             username: null,
@@ -94,27 +94,28 @@ class Register extends React.Component {
      * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
      */
     register() {
-        fetch(`${getDomain()}/users`, {
+        fetch(`${getDomain()}/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: this.state.username,
                 name: this.state.name,
-                password: this.state.password
+                username: this.state.username,
+                password: this.state.password,
             })
         })
             .then(response => {
                  response.json()
             })
             .then(returnedUser => {
-                //handle errorresponses
+                //handle errorResponses
                 if (returnedUser.status === 400) {
                     this.setState({"requestValid": false});
                     return;
                 }
-                else if (returnedUser.status !== "OFFLINE") throw new Error (returnedUser.status + " - " + returnedUser.message);
+                else if (returnedUser.token !== null){ throw new Error (returnedUser.status + " - " + returnedUser.message);}
+
                 this.props.history.push(`/login`);
             })
             .catch(err => {
@@ -122,7 +123,7 @@ class Register extends React.Component {
                     alert("The server cannot be reached. Did you start it?");
                 }
                 else {
-                  alert(`Something went wrong during the login: ${err.message}`);
+                  alert(`Something went wrong during the registration: ${err.message}`);
                 }
             })
     }
