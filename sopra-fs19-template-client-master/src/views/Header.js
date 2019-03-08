@@ -18,6 +18,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   font-weight: bold;
+  font-size: 100px;
   color: white;
   text-align: center;
 `;
@@ -32,7 +33,7 @@ const Title = styled.h1`
 const Header = props => {
   return (
     <Container height={props.height}>
-      <Title>SoPra FS19 rocks with React!</Title>
+      <Title>jowatt isch gay!</Title>
       <ReactLogo width={60} height={60} />
     </Container>
   );
